@@ -41,13 +41,13 @@ dependencies:
   geocode: 
   flutter_polyline_points:
   # geocoding: 
-  # geolocator: ^7.6.0
   calendar_timeline: 
   connectivity:
   flutter_spinkit:
   flutter_launcher_icons:
   get:
   get_storage: 
+  geocoding: ^2.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

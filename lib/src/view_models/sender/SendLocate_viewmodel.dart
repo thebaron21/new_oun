@@ -45,7 +45,6 @@ class SendLocateViewModel extends BaseViewModel {
 
   changeCompleter(GoogleMapController googleMapController) {
     completer.complete(googleMapController);
-    notifyListeners();
   }
 
   selectPosition(LatLng value) async {
