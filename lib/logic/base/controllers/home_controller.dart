@@ -5,8 +5,14 @@ abstract class BaseHomeController extends Controller {
   senderScreen();
   recevieScreen();
   buyScreen();
+
   nextPage();
-  setLocation();
+  setLocation(); // 2
   backPage();
-  getToBuy();
+  goToTime();
+  goToExtrInfo();
+  goToBuy();
+  goToDone();
+  goToPick();
+  goToAddSender();
 }

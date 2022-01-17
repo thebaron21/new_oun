@@ -323,24 +323,25 @@ class SendExtraInfoScreen extends GetView<HomeController> {
                 Expanded(
                   flex: 2,
                   child: RaisedButton(
-                    onPressed: () async {
-                      // if(_fullDesc == ""){
-                      //   showMessage(context,title:"خطأ ",content:"يجب أكمل البيانات");
-                      // }else{
-                      //   SharedPreferences obj =
-                      //     await SharedPreferences.getInstance();
-                      // if (_fullDesc == null) {
-                      //   setState(() => _fullDesc = "");
-                      //   obj.setString("full_desc", _fullDesc);
-                      // } else {
-                      //   obj.setString("full_desc", _fullDesc);
-                      //   controller.gotToTime(context, widget.address);
-                      // }
+                    onPressed: controller.goToPick,
+                    // () async {
+                    //   // if(_fullDesc == ""){
+                    //   //   showMessage(context,title:"خطأ ",content:"يجب أكمل البيانات");
+                    //   // }else{
+                    //   //   SharedPreferences obj =
+                    //   //     await SharedPreferences.getInstance();
+                    //   // if (_fullDesc == null) {
+                    //   //   setState(() => _fullDesc = "");
+                    //   //   obj.setString("full_desc", _fullDesc);
+                    //   // } else {
+                    //   //   obj.setString("full_desc", _fullDesc);
+                    //   //   controller.gotToTime(context, widget.address);
+                    //   // }
 
-                      // print("$_fullDesc");
-                      // }
+                    //   // print("$_fullDesc");
+                    //   // }
                       
-                    },
+                    // },
                     child: Text(
                       ' تأكيد العنوان',
                       style: TextStyle(fontSize: 20),

@@ -218,9 +218,10 @@ class SendPayScreen extends GetView<HomeController> {
         width: size.width,
         height: 47,
         child: RaisedButton(
-          onPressed: () async {
-            // controller.sendOrder(context);
-          },
+          onPressed: controller.goToDone,
+          //  () async {
+          //   // controller.sendOrder(context);
+          // },
           child: controller.getIsLoading.value == true
               ? spickit
               : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),

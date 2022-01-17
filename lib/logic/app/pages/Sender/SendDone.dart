@@ -151,7 +151,7 @@ class SendDoneScreen extends GetView<HomeController> {
                           Row(
                             children: [
                               InkWell(
-                                onTap: controller.getToBuy,
+                                onTap: controller.goToBuy,
                                 child: Container(
                                   width: 80,
                                   height: 80,

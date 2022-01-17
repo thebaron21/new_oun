@@ -77,7 +77,7 @@ class SendLocateScreen extends GetView<HomeController> {
             backgroundColor: controller.colorPattern.primaryColor,
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             child: Icon(Icons.arrow_forward_ios),
-            onPressed: controller.nextPage,
+            onPressed: controller.goToTime,
           ),
         ],
       ),

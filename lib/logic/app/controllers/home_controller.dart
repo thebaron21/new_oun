@@ -9,9 +9,13 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as o;
 import 'package:location/location.dart';
 import 'package:oon_client/logic/app/pages/Sender/AddSender.dart';
+import 'package:oon_client/logic/app/pages/Sender/SendDone.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendExtraInfo.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendLocate.dart';
+import 'package:oon_client/logic/app/pages/Sender/SendPackDetails.dart';
+import 'package:oon_client/logic/app/pages/Sender/SendPay.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendSelectLocal.dart';
+import 'package:oon_client/logic/app/pages/Sender/SendTime.dart';
 import 'package:oon_client/logic/base/controllers/home_controller.dart';
 import 'package:oon_client/src/helpers/color_pattern.dart';
 
@@ -60,42 +64,6 @@ class HomeController extends BaseHomeController {
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
       )
     ];
-  }
-
-  @override
-  recevieScreen() {
-    // TODO: implement receviceScrren
-    throw UnimplementedError();
-  }
-
-  @override
-  senderScreen() {
-    Get.to(SelectLocationsScreen());
-  }
-
-  @override
-  tarckScreen() {
-    // TODO: implement tarckScreen
-    throw UnimplementedError();
-  }
-
-  @override
-  buyScreen() {
-    // TODO: implement buyScreen
-    throw UnimplementedError();
-  }
-
-  @override
-  nextPage() async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        locationLatLng.latitude, locationLatLng.longitude);
-    deliveryAreaIdController.text = placemarks.first.country +
-        " , " +
-        placemarks.first.administrativeArea +
-        " , " +
-        placemarks.first.street;
-    print(deliveryAreaIdController.text);
-    // Get.to(SendExtraInfoScreen());
   }
 
   changeCompleter(GoogleMapController googleMapController) {
@@ -157,6 +125,32 @@ class HomeController extends BaseHomeController {
   }
 
   @override
+  recevieScreen() {
+    // TODO: implement receviceScrren
+    throw UnimplementedError();
+  }
+
+  @override
+  senderScreen() {
+    Get.to(SelectLocationsScreen());
+  }
+
+  @override
+  tarckScreen() {
+    // TODO: implement tarckScreen
+    throw UnimplementedError();
+  }
+
+  @override
+  buyScreen() {
+    // TODO: implement buyScreen
+    throw UnimplementedError();
+  }
+
+  @override
+  nextPage() async {}
+
+  @override
   setLocation() {
     Get.to(SendLocateScreen());
   }
@@ -167,8 +161,41 @@ class HomeController extends BaseHomeController {
   }
 
   @override
-  getToBuy() {
-    // TODO: implement getToBuy
-    throw UnimplementedError();
+  goToBuy() {
+    Get.to(SendPayScreen());
+  }
+
+  @override
+  goToDone() {
+    Get.to(SendDoneScreen());
+  }
+
+  @override
+  goToExtrInfo() {
+    Get.to(SendExtraInfoScreen());
+  }
+
+  @override
+  goToTime() async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        locationLatLng.latitude, locationLatLng.longitude);
+    deliveryAreaIdController.text = placemarks.first.country +
+        " , " +
+        placemarks.first.administrativeArea +
+        " , " +
+        placemarks.first.street;
+    print(deliveryAreaIdController.text);
+
+    Get.to(SendTimeScreen());
+  }
+
+  @override
+  goToPick() {
+    Get.to(SendPackDetailsScreen());
+  }
+
+  @override
+  goToAddSender() {
+    Get.to(AddSenderScreen());
   }
 }

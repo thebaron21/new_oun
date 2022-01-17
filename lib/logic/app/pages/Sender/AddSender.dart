@@ -259,18 +259,19 @@ class AddSenderScreen extends GetView<HomeController> {
         width: screenwidth,
         height: 40,
         child: RaisedButton(
-          onPressed: () async {
-            // if (_uae.text == "" || _phone.text == "") {
-            //   showMessage(context);
-            // } else {
-            //   model.goToAddDetails(
-            //     context,
-            //     address: widget.address,
-            //     uae: _uae.text,
-            //     myPhone: _phone.text,
-            //   );
-            // }
-          },
+          onPressed: controller.goToBuy,
+          // () async {
+          //   // if (_uae.text == "" || _phone.text == "") {
+          //   //   showMessage(context);
+          //   // } else {
+          //   //   model.goToAddDetails(
+          //   //     context,
+          //   //     address: widget.address,
+          //   //     uae: _uae.text,
+          //   //     myPhone: _phone.text,
+          //   //   );
+          //   // }
+          // },
           child: const Text(
             'تفاصيل الشحنة',
             style: TextStyle(fontSize: 20),
