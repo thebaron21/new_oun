@@ -1,7 +1,10 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
@@ -72,7 +75,7 @@ class SendTimeScreen extends GetView<HomeController> {
                 height: 60,
               ),
               Text(
-                "6",
+                "3",
                 style: TextStyle(
                   fontSize: 35,
                   color: controller.colorPattern.primaryColor,
@@ -124,6 +127,22 @@ class SendTimeScreen extends GetView<HomeController> {
           Image.asset(
             'assets/images/png/Group2.png',
             height: 180,
+          ),
+          // ignore: deprecated_member_use
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                DateTime.now().year.toString() +
+                    " " +
+                    DateFormat('MMMM').format(DateTime.now()),
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ),
           _buildCalender(),
           SizedBox(
@@ -248,22 +267,21 @@ class SendTimeScreen extends GetView<HomeController> {
     return CalendarTimeline(
       initialDate: initData,
       firstDate: DateTime(2021, 1, 1),
-      lastDate: DateTime(2050, 1, 1),
+      lastDate: DateTime(DateTime.now().year),
       onDateSelected: (value) {
         // setState(() => initData = value);
         // setState(() =>
-        //     _dateSend = "${initData.year}/${initData.month}/${initData.day}");
-        // print(_dateSend);
+        String _dateSend = "${value.year}/${value.month}/${value.day}";
+        controller.deliveryTimeController.text = _dateSend;
       },
-      showYears: true,
-      leftMargin: 80,
+      // leftMargin: 80,
       monthColor: Colors.blueGrey,
       dayColor: Color(0xFF6D6F72),
       activeBackgroundDayColor: Color(0xFFD0DD28),
       activeDayColor: Colors.white,
       dotsColor: Color(0xFFF1F2F2),
       // selectableDayPredicate: (date) => date.day != 24,
-      // locale: 'ar',
+      locale: 'en',
     );
   }
 }

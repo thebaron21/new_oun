@@ -9,8 +9,6 @@ import 'package:oon_client/src/view/remove/page_logo.dart';
 
 // ignore: must_be_immutable
 class AddSenderScreen extends GetView<HomeController> {
-  TextEditingController _phone = TextEditingController();
-  TextEditingController _uae = TextEditingController();
 
   GlobalKey<FormState> _keyFrom = GlobalKey<FormState>();
 
@@ -67,7 +65,7 @@ class AddSenderScreen extends GetView<HomeController> {
                   height: 60,
                 ),
                 Text(
-                  "4",
+                  "6",
                   style: TextStyle(
                     fontSize: 35,
                     color: controller.colorPattern.primaryColor,
@@ -77,11 +75,12 @@ class AddSenderScreen extends GetView<HomeController> {
             ),
             Center(
               child: Text(
-                'إضافة مرسل',
+                'إضافة مستلم',
                 style: TextStyle(
-                    color: controller.colorPattern.primaryColor,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 24),
+                  color: controller.colorPattern.primaryColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
               ),
             ),
             Container(
@@ -121,7 +120,7 @@ class AddSenderScreen extends GetView<HomeController> {
                               ),
                             ),
                             child: TextField(
-                              controller: _uae,
+                              controller: controller.deliveryContactController,
                               cursorColor: controller.colorPattern.primaryColor,
                               textAlign: TextAlign.center,
                               decoration: new InputDecoration(
@@ -133,22 +132,7 @@ class AddSenderScreen extends GetView<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               InkWell(
-                                onTap: () async {
-                                  /*
-                                          Contact contact =
-                                              await _contactPicker.selectContact();
-                                          if (contact != null) {
-                                            setState(() {
-                                              _uae.text = contact.fullName;
-                                              _phone.text =
-                                                  contact.phoneNumber.number;
-                                            });
-                                            model.changeInitValue(
-                                              contact.fullName,
-                                              contact.phoneNumber.number,
-                                            );
-                                          }*/
-                                },
+                                onTap: controller.addPhoneFromDev,
                                 child: Stack(
                                   alignment: Alignment.center,
                                   children: [
@@ -212,7 +196,7 @@ class AddSenderScreen extends GetView<HomeController> {
                               ),
                             ),
                             child: TextField(
-                              controller: _phone,
+                              controller: controller.deliveryPhoneController,
                               cursorColor: controller.colorPattern.primaryColor,
                               textAlign: TextAlign.center,
                               decoration: new InputDecoration(

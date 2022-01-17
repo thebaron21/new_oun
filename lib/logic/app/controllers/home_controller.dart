@@ -29,6 +29,7 @@ class HomeController extends BaseHomeController {
   TextEditingController pickupAreaIdController = TextEditingController();
   TextEditingController pickupDescriptionController = TextEditingController();
   TextEditingController pickupTimeController = TextEditingController();
+  TextEditingController pickupPriceController = TextEditingController();
 
   TextEditingController deliveryContactController = TextEditingController();
   TextEditingController deliveryPhoneController = TextEditingController();
@@ -39,15 +40,30 @@ class HomeController extends BaseHomeController {
   TextEditingController weightController = TextEditingController();
   TextEditingController shipmentDescriptionController = TextEditingController();
 
+  TextEditingController moreInfoController = TextEditingController();
+  RxBool isBigPick = false.obs;
+  changeWeightPick() {
+    if (isBigPick.value == true) {
+      isBigPick(false);
+      weightController.text = "3kG";
+    } else {
+      weightController.text = "5kG";
+      isBigPick(true);
+    }
+    print(weightController.text);
+    print(isBigPick.value);
+  }
+
   ColorPattern colorPattern = ColorPattern();
-  List<Marker> mapsMarker = List<Marker>();
+  RxList<Marker> mapsMarker = <Marker>[].obs;
   String apiKey = 'AIzaSyD9ckDkX8LPJezARCxA1k9wuigJ_VaLLMY';
   Completer<GoogleMapController> completer = Completer();
 
   RxBool getIsLoading = false.obs;
 
-  LatLng locationLatLng =
-      LatLng(_cameraPosition.target.latitude, _cameraPosition.target.longitude);
+  Rx locationLatLng =
+      LatLng(_cameraPosition.target.latitude, _cameraPosition.target.longitude)
+          .obs;
 
   static CameraPosition _cameraPosition = CameraPosition(
       target: LatLng(15.600439481364994, 32.4445266276598), zoom: 18.009);
@@ -55,19 +71,24 @@ class HomeController extends BaseHomeController {
   CameraPosition get cameraPosition => _cameraPosition;
 
   selectPosition(LatLng value) async {
-    locationLatLng = value;
+    mapsMarker.clear();
+    locationLatLng(value);
     _getCurrentLocation(value);
-    mapsMarker = [
+
+    mapsMarker.add(
       Marker(
         position: value,
         markerId: MarkerId("selected"),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
-      )
-    ];
+      ),
+    );
+    String name = await getNameArea(value);
+    print(name);
   }
 
   changeCompleter(GoogleMapController googleMapController) {
     completer.complete(googleMapController);
+    update();
   }
 
   void _getCurrentLocation(LatLng value) async {
@@ -80,6 +101,7 @@ class HomeController extends BaseHomeController {
         ),
       ),
     );
+    update();
   }
 
   locationFunc() async {
@@ -115,13 +137,13 @@ class HomeController extends BaseHomeController {
         ),
       ),
     );
-    mapsMarker = [
+    mapsMarker.add(
       Marker(
         position: LatLng(_locationData.latitude, _locationData.longitude),
         markerId: MarkerId("mylocation"),
         icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
-      )
-    ];
+      ),
+    );
   }
 
   @override
@@ -178,7 +200,7 @@ class HomeController extends BaseHomeController {
   @override
   goToTime() async {
     List<Placemark> placemarks = await placemarkFromCoordinates(
-        locationLatLng.latitude, locationLatLng.longitude);
+        locationLatLng.value.latitude, locationLatLng.value.longitude);
     deliveryAreaIdController.text = placemarks.first.country +
         " , " +
         placemarks.first.administrativeArea +
@@ -198,4 +220,43 @@ class HomeController extends BaseHomeController {
   goToAddSender() {
     Get.to(AddSenderScreen());
   }
+
+  Future<String> getNameArea(LatLng latLng) async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        locationLatLng.value.latitude, locationLatLng.value.longitude);
+    return placemarks.first.country +
+        " , " +
+        placemarks.first.administrativeArea +
+        " , " +
+        placemarks.first.street;
+  }
+
+  RxBool isClose = false.obs;
+
+  addMoreInfoOfAddress() {
+    isClose(true);
+    deliveryTimeController.text += moreInfoController.text;
+  }
+
+  closeMoreInfoAddress() {
+    isClose(true);
+  }
+
+  addPhoneFromDev(){
+    
+                                          Contact contact =
+                                              await _contactPicker.selectContact();
+                                          if (contact != null) {
+                                            setState(() {
+                                              _uae.text = contact.fullName;
+                                              _phone.text =
+                                                  contact.phoneNumber.number;
+                                            });
+                                            model.changeInitValue(
+                                              contact.fullName,
+                                              contact.phoneNumber.number,
+                                            );
+                                          
+  }
+
 }

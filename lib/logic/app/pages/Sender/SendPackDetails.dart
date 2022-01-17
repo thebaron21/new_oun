@@ -47,21 +47,19 @@ class SendPackDetailsScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: Container(
-        //   padding: EdgeInsets.all(8),
-        //   child: SvgPicture.asset(
-        //     'assets/images/svg/ic_menu.svg',
-        //   ),
-        // ),
+        leading: Container(
+          padding: EdgeInsets.all(8),
+          child: SvgPicture.asset(
+            'assets/images/svg/ic_menu.svg',
+          ),
+        ),
       ),
       body: ListView(
         children: [
           ActionBar(
             title: "",
             colorPattern: controller.colorPattern,
-            back: () {
-              Navigator.of(context).pop();
-            },
+            back: controller.backPage,
             help: () {},
           ),
           Stack(
@@ -74,7 +72,7 @@ class SendPackDetailsScreen extends GetView<HomeController> {
               Text(
                 "5",
                 style: TextStyle(
-                  fontSize: null,
+                  fontSize: 35,
                   color: controller.colorPattern.primaryColor,
                 ),
               )
@@ -137,12 +135,12 @@ class SendPackDetailsScreen extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               InkWell(
-                onTap: () => isBig = true,
+                onTap: controller.changeWeightPick,
                 child: _buildBig(A, isBig),
               ),
               Padding(padding: EdgeInsets.fromLTRB(D, 0, 0, 0)),
               InkWell(
-                onTap: () => isBig = false,
+                onTap: controller.changeWeightPick,
                 child: _buildSmail(B, isBig),
               )
             ],
@@ -175,7 +173,7 @@ class SendPackDetailsScreen extends GetView<HomeController> {
                   ),
                 ),
                 child: TextField(
-                  controller: null,
+                  controller: controller.pickupDescriptionController,
                   cursorColor: controller.colorPattern.primaryColor,
                   textAlign: TextAlign.center,
                   decoration: new InputDecoration(
@@ -209,7 +207,7 @@ class SendPackDetailsScreen extends GetView<HomeController> {
                   ),
                 ),
                 child: TextField(
-                  controller: null,
+                  controller: controller.pickupPriceController,
                   cursorColor: controller.colorPattern.primaryColor,
                   textAlign: TextAlign.center,
                   decoration: new InputDecoration(
@@ -280,90 +278,79 @@ class SendPackDetailsScreen extends GetView<HomeController> {
   }
 
   _buildBig(A, bool isSelect) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      color: isSelect == false ? null : Color(0xFFD0DD28).withOpacity(0.4),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Column(
-                children: [
-                  Container(
-                    width: A,
-                    child: Image.asset(
-                      'assets/images/png/g5.png',
-                    ),
-                  ),
-                ],
+    return Obx(() {
+      return Container(
+        width: Get.width * 0.4,
+        padding: EdgeInsets.all(5),
+        color: controller.isBigPick.value == false
+            ? null
+            : Color(0xFFD0DD28).withOpacity(0.4),
+        child: Column(
+          children: [
+            Container(
+              width: A,
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                'assets/images/png/g5.png',
+                width: Get.width * 0.15,
+                fit: BoxFit.cover,
               ),
-              Padding(padding: EdgeInsets.all(5)),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Text('كبير'),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        '50*50*75cm 50kgm',
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ],
-                  )
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Text('كبير'),
+                ),
+                Text(
+                  '50*50*75cm 5kgm',
+                  style: TextStyle(fontSize: 10),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    });
   }
 
   _buildSmail(B, bool isSelect) {
-    return Container(
-      padding: EdgeInsets.only(top: 14, bottom: 14),
-      color: isSelect == true ? null : Color(0xFFD0DD28).withOpacity(0.4),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Padding(padding: EdgeInsets.fromLTRB(10, 0, 0, 0)),
-              Column(
+    return Obx(() {
+      return Container(
+        width: Get.width * 0.4,
+        padding: EdgeInsets.all(5),
+        color: controller.isBigPick.value == true
+            ? null
+            : Color(0xFFD0DD28).withOpacity(0.4),
+        child: Column(
+          children: [
+            Container(
+              width: B,
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                'assets/images/png/g4.png',
+                width: Get.width * 0.15,
+                fit: BoxFit.cover,
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Container(
-                    width: B,
-                    child: Image.asset(
-                      'assets/images/png/g4.png',
-                    ),
+                  Text('صغير'),
+                  Text(
+                    '30*30*75cm 3kgm',
+                    style: TextStyle(fontSize: 10),
                   ),
                 ],
               ),
-              Padding(padding: EdgeInsets.all(5)),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      Text('صغير'),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      Text(
-                        '30*30*75cm 30kgm',
-                        style: TextStyle(fontSize: 10),
-                      ),
-                    ],
-                  )
-                ],
-              )
-            ],
-          )
-        ],
-      ),
-    );
+            )
+          ],
+        ),
+      );
+    });
   }
 
   showMessage(context, {String title, String content}) {

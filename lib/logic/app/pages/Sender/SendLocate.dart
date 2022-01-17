@@ -27,40 +27,40 @@ class SendLocateScreen extends GetView<HomeController> {
         //   ),
         // ),
       ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            ActionBar(
-              title: 'إرسال',
-              colorPattern: controller.colorPattern,
-              back: () {
-                Navigator.of(context).pop();
-              },
-              help: () {},
-            ),
-            Expanded(
-              child: Container(
-                width: size.width,
-                child: GoogleMap(
-                  markers: controller.mapsMarker.toSet(),
-                  onTap: (value) {
-                    controller.selectPosition(value);
-                  },
-                  myLocationButtonEnabled: true,
-                  myLocationEnabled: true,
-                  mapType: MapType.normal,
-                  initialCameraPosition: controller.cameraPosition,
-                  onMapCreated: (con) {
-                    controller.changeCompleter(con);
-                  },
+      body: GetX<HomeController>(builder: (context) {
+        return SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              ActionBar(
+                title: 'إرسال',
+                colorPattern: controller.colorPattern,
+                back: controller.backPage,
+                help: () {},
+              ),
+              Expanded(
+                child: Container(
+                  width: size.width,
+                  child: GoogleMap(
+                    markers: controller.mapsMarker.toSet(),
+                    onTap: (value) {
+                      controller.selectPosition(value);
+                    },
+                    myLocationButtonEnabled: true,
+                    myLocationEnabled: true,
+                    mapType: MapType.normal,
+                    initialCameraPosition: controller.cameraPosition,
+                    onMapCreated: (con) {
+                      controller.changeCompleter(con);
+                    },
+                  ),
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
       floatingActionButtonLocation: FloatingActionButtonLocation.miniStartFloat,
       floatingActionButton: Row(
         children: [
