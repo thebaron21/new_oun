@@ -1,13 +1,28 @@
-// ignore_for_file: deprecated_member_use
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart' as o;
 import 'package:location/location.dart';
+import 'package:oon_client/logic/app/models/order_model.dart';
+import 'package:oon_client/logic/app/models/profile_model.dart';
+import 'package:oon_client/logic/app/pages/Buy/AddSender.dart';
+import 'package:oon_client/logic/app/pages/Buy/SendExtraInfo.dart';
+import 'package:oon_client/logic/app/pages/Buy/SendLocate.dart';
+import 'package:oon_client/logic/app/pages/Buy/SendPackDetails.dart';
+import 'package:oon_client/logic/app/pages/Buy/SendPay.dart';
+import 'package:oon_client/logic/app/pages/Buy/SendSelectLocal.dart';
+import 'package:oon_client/logic/app/pages/Buy/SendTime.dart';
+import 'package:oon_client/logic/app/pages/Recevice/AddSender.dart';
+import 'package:oon_client/logic/app/pages/Recevice/SendDone.dart';
+import 'package:oon_client/logic/app/pages/Recevice/SendExtraInfo.dart';
+import 'package:oon_client/logic/app/pages/Recevice/SendLocate.dart';
+import 'package:oon_client/logic/app/pages/Recevice/SendPackDetails.dart';
+import 'package:oon_client/logic/app/pages/Recevice/SendPay.dart';
+import 'package:oon_client/logic/app/pages/Recevice/SendSelectLocal.dart';
+import 'package:oon_client/logic/app/pages/Recevice/SendTime.dart';
 import 'package:oon_client/logic/app/pages/Sender/AddSender.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendDone.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendExtraInfo.dart';
@@ -16,8 +31,12 @@ import 'package:oon_client/logic/app/pages/Sender/SendPackDetails.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendPay.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendSelectLocal.dart';
 import 'package:oon_client/logic/app/pages/Sender/SendTime.dart';
+import 'package:oon_client/logic/app/pages/Tracking/Track.dart';
+import 'package:oon_client/logic/app/res/create_order.dart';
 import 'package:oon_client/logic/base/controllers/home_controller.dart';
 import 'package:oon_client/src/helpers/color_pattern.dart';
+
+import 'order_controller.dart';
 
 enum OrderStatus2 { Completed, Inprogress }
 
@@ -41,6 +60,25 @@ class HomeController extends BaseHomeController {
   TextEditingController shipmentDescriptionController = TextEditingController();
 
   TextEditingController moreInfoController = TextEditingController();
+  GetStorage storage = GetStorage();
+  OrderController _orderController = OrderController();
+
+  toMap() => {
+        "userIdController": userIdController.text,
+        "pickupContactController": pickupContactController.text,
+        "pickupPhoneController": pickupPhoneController.text,
+        "pickupAreaIdController": pickupAreaIdController.text,
+        "pickupDescriptionController": pickupDescriptionController.text,
+        "pickupTimeController": pickupTimeController.text,
+        "pickupPriceController": pickupPriceController.text,
+        "deliveryContactController": deliveryContactController.text,
+        "deliveryPhoneController": deliveryPhoneController.text,
+        "deliveryAreaIdController": deliveryAreaIdController.text,
+        "deliveryDescriptionController": deliveryDescriptionController.text,
+        "deliveryTimeController": deliveryTimeController.text,
+        "weightController": weightController.text,
+        "moreInfoController": moreInfoController.text,
+      };
   RxBool isBigPick = false.obs;
   changeWeightPick() {
     if (isBigPick.value == true) {
@@ -93,6 +131,7 @@ class HomeController extends BaseHomeController {
 
   void _getCurrentLocation(LatLng value) async {
     GoogleMapController v = await completer.future;
+
     v.animateCamera(
       CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -148,8 +187,7 @@ class HomeController extends BaseHomeController {
 
   @override
   recevieScreen() {
-    // TODO: implement receviceScrren
-    throw UnimplementedError();
+    Get.to(SelectLocationsReceviceScreen());
   }
 
   @override
@@ -159,14 +197,12 @@ class HomeController extends BaseHomeController {
 
   @override
   tarckScreen() {
-    // TODO: implement tarckScreen
-    throw UnimplementedError();
+    Get.to(TrackScreen());
   }
 
   @override
   buyScreen() {
-    // TODO: implement buyScreen
-    throw UnimplementedError();
+    Get.to(BuySelectLocationsScreen());
   }
 
   @override
@@ -175,6 +211,14 @@ class HomeController extends BaseHomeController {
   @override
   setLocation() {
     Get.to(SendLocateScreen());
+  }
+
+  selLocationBuy() {
+    Get.to(BuyLocateScreen());
+  }
+
+  setLocationRecevice() {
+    Get.to(SendLocateReceviceScreen());
   }
 
   @override
@@ -187,14 +231,25 @@ class HomeController extends BaseHomeController {
     Get.to(SendPayScreen());
   }
 
-  @override
-  goToDone() {
-    Get.to(SendDoneScreen());
+  goToBuyNext() {
+    Get.to(BuyPayScreen());
+  }
+
+  goToBuyRecevice() {
+    Get.to(SendPayReceviceScreen());
   }
 
   @override
   goToExtrInfo() {
     Get.to(SendExtraInfoScreen());
+  }
+
+  goToExtrInfoBuy() {
+    Get.to(BuyExtraInfoScreen());
+  }
+
+  goToExtrInfoRecevice() {
+    Get.to(SendExtraInfoReceviceScreen());
   }
 
   @override
@@ -211,14 +266,56 @@ class HomeController extends BaseHomeController {
     Get.to(SendTimeScreen());
   }
 
+  goToTimeBuy() async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        locationLatLng.value.latitude, locationLatLng.value.longitude);
+    deliveryAreaIdController.text = placemarks.first.country +
+        " , " +
+        placemarks.first.administrativeArea +
+        " , " +
+        placemarks.first.street;
+    print(deliveryAreaIdController.text);
+
+    Get.to(BuyTimeScreen());
+  }
+
+  goToTimeRecevice() async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(
+        locationLatLng.value.latitude, locationLatLng.value.longitude);
+    deliveryAreaIdController.text = placemarks.first.country +
+        " , " +
+        placemarks.first.administrativeArea +
+        " , " +
+        placemarks.first.street;
+    print(deliveryAreaIdController.text);
+
+    Get.to(SendTimeReceviceScreen());
+  }
+
   @override
   goToPick() {
     Get.to(SendPackDetailsScreen());
   }
 
+  goToPickBuy() {
+    Get.to(BuyPackDetailsScreen());
+  }
+
   @override
   goToAddSender() {
     Get.to(AddSenderScreen());
+  }
+
+  goToAddBuy() {
+    Get.to(AddBuyScreen());
+  }
+
+  goToPickRecevice() {
+    Get.to(SendPackDetailsReceviceScreen());
+  }
+
+  goToAddSenderRecevice() {
+    Get.to(AddSenderReceviceScreen());
   }
 
   Future<String> getNameArea(LatLng latLng) async {
@@ -242,21 +339,143 @@ class HomeController extends BaseHomeController {
     isClose(true);
   }
 
-  addPhoneFromDev(){
-    
-                                          Contact contact =
-                                              await _contactPicker.selectContact();
-                                          if (contact != null) {
-                                            setState(() {
-                                              _uae.text = contact.fullName;
-                                              _phone.text =
-                                                  contact.phoneNumber.number;
-                                            });
-                                            model.changeInitValue(
-                                              contact.fullName,
-                                              contact.phoneNumber.number,
-                                            );
-                                          
+  addPhoneFromDev() async {
+    // final PhoneContact contact = await FlutterContactPicker.pickPhoneContact();
+    // deliveryPhoneController.text = contact.phoneNumber.number;
+    // deliveryContactController.text = contact.fullName;
   }
 
+  @override
+  goToDone() async {
+    AuthenticationModel user =
+        AuthenticationModel.fromJson(storage.read("user"));
+    userIdController.text = user.user.id.toString();
+    pickupContactController.text = user.user.name;
+    pickupPhoneController.text = user.user.phone;
+    pickupAreaIdController.text = "";
+    if (isBigPick.value == true)
+      weightController.text = "0_5KG";
+    else
+      weightController.text = "3KG";
+    shipmentDescriptionController.text = "f1";
+    OrderModel orderData = OrderModel(
+      userId: userIdController.text,
+      pickupContact: pickupContactController.text,
+      pickupPhone: pickupPhoneController.text,
+      pickupAreaId: "1",
+      pickupDescription: pickupDescriptionController.text,
+      pickupTime: deliveryTimeController.text.replaceAll("/", "-") +
+          " " +
+          DateTime.now().hour.toString() +
+          ":" +
+          DateTime.now().minute.toString(),
+      deliveryContact: deliveryContactController.text,
+      deliveryPhone: "+966" + deliveryPhoneController.text,
+      deliveryAreaId: "2",
+      deliveryDescription: deliveryAreaIdController.text,
+      deliveryTime: deliveryTimeController.text.replaceAll("/", "-") +
+          " " +
+          DateTime.now().hour.toString() +
+          ":" +
+          DateTime.now().minute.toString(),
+      weight: weightController.text,
+      shipmentDescription: shipmentDescriptionController.text,
+    );
+    var isDone = await CreateOrderSender.setOrder(orderData);
+    if (isDone["message"] == "seccess") {
+      var tarckingCode = isDone["data"]["order"]["tracking_code"];
+      await storage.write("tracking_code", tarckingCode);
+      print(storage.getKeys());
+      Get.to(SendDoneScreen());
+    }
+  }
+
+  @override
+  goToDoneRevecie() async {
+    AuthenticationModel user =
+        AuthenticationModel.fromJson(storage.read("user"));
+    userIdController.text = user.user.id.toString();
+    pickupContactController.text = user.user.name;
+    pickupPhoneController.text = user.user.phone;
+    pickupAreaIdController.text = "";
+    if (isBigPick.value == true)
+      weightController.text = "0_5KG";
+    else
+      weightController.text = "3KG";
+    shipmentDescriptionController.text = "f1";
+    OrderModel orderData = OrderModel(
+      userId: userIdController.text,
+      pickupContact: pickupContactController.text,
+      pickupPhone: pickupPhoneController.text,
+      pickupAreaId: "1",
+      pickupDescription: pickupDescriptionController.text,
+      pickupTime: deliveryTimeController.text.replaceAll("/", "-") +
+          " " +
+          DateTime.now().hour.toString() +
+          ":" +
+          DateTime.now().minute.toString(),
+      deliveryContact: deliveryContactController.text,
+      deliveryPhone: "+966" + deliveryPhoneController.text,
+      deliveryAreaId: "2",
+      deliveryDescription: deliveryAreaIdController.text,
+      deliveryTime: deliveryTimeController.text.replaceAll("/", "-") +
+          " " +
+          DateTime.now().hour.toString() +
+          ":" +
+          DateTime.now().minute.toString(),
+      weight: weightController.text,
+      shipmentDescription: shipmentDescriptionController.text,
+    );
+    var isDone = await CreateOrderSender.setRecieve(orderData);
+    if (isDone["message"] == "seccess") {
+      var tarckingCode = isDone["data"]["order"]["tracking_code"];
+      await storage.write("tracking_code", tarckingCode);
+      print(storage.getKeys());
+      Get.to(SendDoneReceviceScreen());
+    }
+  }
+
+  goToDoneBuy() async {
+    AuthenticationModel user =
+        AuthenticationModel.fromJson(storage.read("user"));
+    userIdController.text = user.user.id.toString();
+    pickupContactController.text = user.user.name;
+    pickupPhoneController.text = user.user.phone;
+    pickupAreaIdController.text = "";
+    if (isBigPick.value == true)
+      weightController.text = "0_5KG";
+    else
+      weightController.text = "3KG";
+    shipmentDescriptionController.text = "f1";
+    OrderModel orderData = OrderModel(
+      userId: userIdController.text,
+      pickupContact: pickupContactController.text,
+      pickupPhone: pickupPhoneController.text,
+      pickupAreaId: "1",
+      pickupDescription: pickupDescriptionController.text,
+      pickupTime: deliveryTimeController.text.replaceAll("/", "-") +
+          " " +
+          DateTime.now().hour.toString() +
+          ":" +
+          DateTime.now().minute.toString(),
+      deliveryContact: deliveryContactController.text,
+      deliveryPhone: "+966" + deliveryPhoneController.text,
+      deliveryAreaId: "2",
+      deliveryDescription: deliveryAreaIdController.text,
+      deliveryTime: deliveryTimeController.text.replaceAll("/", "-") +
+          " " +
+          DateTime.now().hour.toString() +
+          ":" +
+          DateTime.now().minute.toString(),
+      weight: weightController.text,
+      shipmentDescription: shipmentDescriptionController.text,
+    );
+    var isDone = await CreateOrderSender.setBuy(orderData);
+    if (isDone["message"] == "seccess") {
+      var tarckingCode = isDone["data"]["order"]["tracking_code"];
+      await storage.write("tracking_code", tarckingCode);
+      print(storage.getKeys());
+      Get.to(SendDoneScreen());
+    }
+  }
 }

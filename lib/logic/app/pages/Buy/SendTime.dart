@@ -9,11 +9,9 @@ import 'package:oon_client/logic/app/components/drawer_widget.dart';
 import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
-import 'package:oon_client/src/view_models/sender/SendTime_viewmodel.dart';
-import 'package:stacked/stacked.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
 
-class SendTimeScreen extends GetView<HomeController> {
+class BuyTimeScreen extends GetView<HomeController> {
   String _dateSend = DateTime.utc(2000, 30, 2).toString();
 
   @override
@@ -51,13 +49,14 @@ class SendTimeScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: Container(
-        //   padding: EdgeInsets.all(8),
-        //   child: SvgPicture.asset(
-        //     'assets/images/svg/ic_menu.svg',
-        //   ),
-        // ),
+        leading: Container(
+          padding: EdgeInsets.all(8),
+          child: SvgPicture.asset(
+            'assets/images/svg/ic_menu.svg',
+          ),
+        ),
       ),
+      endDrawer: drawerCustom(),
       body: ListView(
         children: [
           ActionBar(
@@ -204,7 +203,6 @@ class SendTimeScreen extends GetView<HomeController> {
           // ),
         ],
       ),
-      endDrawer: drawerCustom(),
       bottomNavigationBar: Container(
           height: 50,
           child: Row(
@@ -239,7 +237,7 @@ class SendTimeScreen extends GetView<HomeController> {
                       width: screenwidth / 2,
                       height: B,
                       child: RaisedButton(
-                        onPressed: controller.goToExtrInfo
+                        onPressed: controller.goToExtrInfoBuy
                         //  () async {
 
                         //   // model.goToDetails(

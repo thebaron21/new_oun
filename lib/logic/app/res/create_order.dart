@@ -8,7 +8,7 @@ class CreateOrderSender {
   static const String recieve = "Recieve";
   static const String buy = "Buy";
   static const Map<String, String> headers = {"Accept": "application/json"};
-  static Future setOrder(OrderModel order) async{
+  static Future setOrder(OrderModel order) async {
     try {
       var res = await Remote.postF(
         uri: EndPoint.orderCreate,
@@ -21,7 +21,7 @@ class CreateOrderSender {
     }
   }
 
-  setRecieve(OrderModel order) async {
+  static Future setRecieve(OrderModel order) async {
     try {
       var res = Remote.postF(
         uri: EndPoint.orderCreate,
@@ -34,7 +34,7 @@ class CreateOrderSender {
     }
   }
 
-  setBuy(OrderModel order) async {
+  static Future setBuy(OrderModel order) async {
     try {
       var res = Remote.postF(
         uri: EndPoint.orderCreate,

@@ -6,7 +6,7 @@ import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 
-class SendPackDetailsScreen extends GetView<HomeController> {
+class SendPackDetailsReceviceScreen extends GetView<HomeController> {
   bool isBig = false;
   String token;
 
@@ -223,7 +223,6 @@ class SendPackDetailsScreen extends GetView<HomeController> {
           ),
         ],
       ),
-      endDrawer: drawerCustom(),
       bottomSheet: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -248,7 +247,23 @@ class SendPackDetailsScreen extends GetView<HomeController> {
             // ignore: deprecated_member_use
             child: RaisedButton(
               padding: EdgeInsets.all(6),
-              onPressed: controller.goToAddSender,
+              onPressed: controller.goToAddSenderRecevice,
+              // () async {
+              //   // ignore: unrelated_type_equality_checks
+              //   // if (_price.text == "" || _details.text == "") {
+              //   //   showMessage(
+              //   //     context,
+              //   //     title: "تفاصيل الشحنة",
+              //   //     content: "أكمل جميع الحقول",
+              //   //   );
+              //   // } null{
+              //   //   controller.goToTimeAndDate(context,
+              //   //       details: _details.text,
+              //   //       isBig: isBig,
+              //   //       price: _price.text,
+              //   //       address: widget.address);
+              //   // }
+              // },
               child: const Text(
                 'مواعيد إرسال الشحنة',
                 style: TextStyle(fontSize: 20),
@@ -260,6 +275,7 @@ class SendPackDetailsScreen extends GetView<HomeController> {
           )
         ],
       ),
+      endDrawer: drawerCustom(),
     );
   }
 

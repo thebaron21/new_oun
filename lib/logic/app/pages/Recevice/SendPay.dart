@@ -8,7 +8,7 @@ import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
 import 'package:stacked/stacked.dart';
 
-class SendPayScreen extends GetView<HomeController> {
+class SendPayReceviceScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -226,7 +226,7 @@ class SendPayScreen extends GetView<HomeController> {
         width: size.width,
         height: 47,
         child: RaisedButton(
-          onPressed: controller.goToDone,
+          onPressed: controller.goToDoneRevecie,
           child: controller.getIsLoading.value == true
               ? spickit
               : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),

@@ -8,7 +8,7 @@ import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
 import 'package:stacked/stacked.dart';
 
-class SendPayScreen extends GetView<HomeController> {
+class BuyPayScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -24,13 +24,14 @@ class SendPayScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: Container(
-        //   padding: EdgeInsets.all(8),
-        //   child: SvgPicture.asset(
-        //     'assets/images/svg/ic_menu.svg',
-        //   ),
-        // ),
+        leading: Container(
+          padding: EdgeInsets.all(8),
+          child: SvgPicture.asset(
+            'assets/images/svg/ic_menu.svg',
+          ),
+        ),
       ),
+      endDrawer: drawerCustom(),
       body: ListView(
         children: [
           ActionBar(
@@ -221,12 +222,11 @@ class SendPayScreen extends GetView<HomeController> {
           ),
         ],
       ),
-      endDrawer: drawerCustom(),
       bottomSheet: Container(
         width: size.width,
         height: 47,
         child: RaisedButton(
-          onPressed: controller.goToDone,
+          onPressed: controller.goToDoneBuy,
           child: controller.getIsLoading.value == true
               ? spickit
               : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),

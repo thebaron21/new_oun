@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:oon_client/logic/app/components/drawer_widget.dart';
 import 'package:oon_client/logic/app/controllers/home_controller.dart';
+import 'package:oon_client/logic/core/config/config_url.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends GetView<HomeController> {
   @override
@@ -25,13 +28,17 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: Container(
-        //   padding: EdgeInsets.all(8),
-        //   child: SvgPicture.asset(
-        //     'assets/images/svg/ic_menu.svg',
+        // leading: InkWell(
+        //   onTap: () => Scaffold.of(context).openDrawer(),
+        //   child: Container(
+        //     padding: EdgeInsets.all(8),
+        //     child: SvgPicture.asset(
+        //       'assets/images/svg/ic_menu.svg',
+        //     ),
         //   ),
         // ),
       ),
+      endDrawer: drawerCustom(),
       body: new Theme(
         data: ThemeData(primaryColor: Color(0XFFD0DD28)),
         child: ListView(

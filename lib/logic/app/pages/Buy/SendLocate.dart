@@ -6,7 +6,7 @@ import 'package:oon_client/logic/app/components/drawer_widget.dart';
 import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 
-class SendLocateScreen extends GetView<HomeController> {
+class BuyLocateScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -28,6 +28,7 @@ class SendLocateScreen extends GetView<HomeController> {
           ),
         ),
       ),
+      endDrawer: drawerCustom(),
       body: GetX<HomeController>(builder: (context) {
         return SafeArea(
           child: Column(
@@ -78,11 +79,10 @@ class SendLocateScreen extends GetView<HomeController> {
             backgroundColor: controller.colorPattern.primaryColor,
             materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
             child: Icon(Icons.arrow_forward_ios),
-            onPressed: controller.goToTime,
+            onPressed: controller.goToTimeBuy,
           ),
         ],
       ),
-      endDrawer: drawerCustom(),
     );
   }
 }

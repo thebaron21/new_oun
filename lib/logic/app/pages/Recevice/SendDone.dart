@@ -4,17 +4,13 @@ import 'package:get/get.dart';
 import 'package:oon_client/logic/app/components/drawer_widget.dart';
 import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/logic/app/pages/home_screen.dart';
-import 'package:oon_client/src/view/remove/order_step_two_view.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
-import 'package:oon_client/src/view/widgets/home.dart';
-import 'package:stacked/stacked.dart';
 
-class SendDoneScreen extends GetView<HomeController> {
+class SendDoneReceviceScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      endDrawer: drawerCustom(),
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.home),
@@ -32,6 +28,7 @@ class SendDoneScreen extends GetView<HomeController> {
         ),
         leadingWidth: 48,
       ),
+      endDrawer: drawerCustom(),
       body: ListView(
         children: [
           ActionBar(

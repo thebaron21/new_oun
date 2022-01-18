@@ -10,7 +10,7 @@ import 'package:oon_client/src/view/remove/page_logo.dart';
 import 'package:oon_client/src/view/widgets/home.dart';
 import 'package:stacked/stacked.dart';
 
-class SendDoneScreen extends GetView<HomeController> {
+class BuyDoneScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

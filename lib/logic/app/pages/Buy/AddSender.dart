@@ -9,7 +9,7 @@ import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
 
 // ignore: must_be_immutable
-class AddSenderScreen extends GetView<HomeController> {
+class AddBuyScreen extends GetView<HomeController> {
   GlobalKey<FormState> _keyFrom = GlobalKey<FormState>();
 
   @override
@@ -43,7 +43,14 @@ class AddSenderScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
+        leading: Container(
+          padding: EdgeInsets.all(8),
+          child: SvgPicture.asset(
+            'assets/images/svg/ic_menu.svg',
+          ),
+        ),
       ),
+      endDrawer: drawerCustom(),
       body: Form(
         key: _keyFrom,
         child: ListView(
@@ -243,7 +250,7 @@ class AddSenderScreen extends GetView<HomeController> {
         width: screenwidth,
         height: 40,
         child: RaisedButton(
-          onPressed: controller.goToBuyNext,
+          onPressed: controller.goToBuy,
           child: const Text(
             'تفاصيل الشحنة',
             style: TextStyle(fontSize: 20),
@@ -253,7 +260,6 @@ class AddSenderScreen extends GetView<HomeController> {
           elevation: 5,
         ),
       ),
-      endDrawer: drawerCustom(),
     );
   }
 }

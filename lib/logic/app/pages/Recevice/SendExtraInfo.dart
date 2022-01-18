@@ -6,8 +6,8 @@ import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
 
-class SendExtraInfoScreen extends GetView<HomeController> {
-  // TextEditingController _fullDesc = TextEditingController();
+class SendExtraInfoReceviceScreen extends GetView<HomeController> {
+  // TextEditingContscreenroller _fullDesc = TextEditingController();
   String _fullDesc;
   GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
 
@@ -48,6 +48,7 @@ class SendExtraInfoScreen extends GetView<HomeController> {
         //   ),
         // ),
       ),
+      endDrawer: drawerCustom(),
       body: Form(
         key: _keyForm,
         child: ListView(
@@ -330,7 +331,7 @@ class SendExtraInfoScreen extends GetView<HomeController> {
             Expanded(
               flex: 2,
               child: InkWell(
-                onTap: controller.goToPick,
+                onTap: controller.goToPickRecevice,
                 child: Container(
                   height: 45,
                   alignment: Alignment.center,
@@ -349,7 +350,6 @@ class SendExtraInfoScreen extends GetView<HomeController> {
           ],
         ),
       ),
-      endDrawer: drawerCustom(),
     );
   }
 }

@@ -43,7 +43,7 @@ class OrderModel {
         "delivery_area_id": deliveryAreaId,
         "delivery_description": deliveryDescription,
         "delivery_time": deliveryTime,
-        "shipment_description": weight,
-        "weight": shipmentDescription,
+        "shipment_description": shipmentDescription,
+        "weight": weight,
       };
 }

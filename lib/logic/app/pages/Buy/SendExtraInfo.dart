@@ -6,7 +6,7 @@ import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
 
-class SendExtraInfoScreen extends GetView<HomeController> {
+class BuyExtraInfoScreen extends GetView<HomeController> {
   // TextEditingController _fullDesc = TextEditingController();
   String _fullDesc;
   GlobalKey<FormState> _keyForm = GlobalKey<FormState>();
@@ -41,13 +41,14 @@ class SendExtraInfoScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: Container(
-        //   padding: EdgeInsets.all(8),
-        //   child: SvgPicture.asset(
-        //     'assets/images/svg/ic_menu.svg',
-        //   ),
-        // ),
+        leading: Container(
+          padding: EdgeInsets.all(8),
+          child: SvgPicture.asset(
+            'assets/images/svg/ic_menu.svg',
+          ),
+        ),
       ),
+      endDrawer: drawerCustom(),
       body: Form(
         key: _keyForm,
         child: ListView(
@@ -330,7 +331,7 @@ class SendExtraInfoScreen extends GetView<HomeController> {
             Expanded(
               flex: 2,
               child: InkWell(
-                onTap: controller.goToPick,
+                onTap: controller.goToPickBuy,
                 child: Container(
                   height: 45,
                   alignment: Alignment.center,
@@ -349,7 +350,6 @@ class SendExtraInfoScreen extends GetView<HomeController> {
           ],
         ),
       ),
-      endDrawer: drawerCustom(),
     );
   }
 }

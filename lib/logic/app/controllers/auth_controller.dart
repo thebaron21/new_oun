@@ -93,6 +93,7 @@ class AuthController extends AuthenticationController {
             GetStorage _storage = GetStorage();
             await _storage.write("token", user.token);
             await _storage.write("userid", user.user.id);
+            await _storage.write("user", user.toJson());
             print(user.toJson());
             Get.toNamed("/home");
           }

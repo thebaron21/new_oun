@@ -7,11 +7,10 @@ import 'package:oon_client/src/view/remove/page_logo.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/widgets/m_button.dart';
 
-class SelectLocationsScreen extends GetView<HomeController> {
+class BuySelectLocationsScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        endDrawer: drawerCustom(),
         appBar: AppBar(
           backgroundColor: controller.colorPattern.primaryColor,
           centerTitle: true,
@@ -22,7 +21,14 @@ class SelectLocationsScreen extends GetView<HomeController> {
             ),
           ),
           leadingWidth: 48,
+          leading: Container(
+            padding: EdgeInsets.all(8),
+            child: SvgPicture.asset(
+              'assets/images/svg/ic_menu.svg',
+            ),
+          ),
         ),
+        endDrawer: drawerCustom(),
         body: SafeArea(
           child: Container(
             child: Column(
@@ -43,7 +49,7 @@ class SelectLocationsScreen extends GetView<HomeController> {
                 ),
                 Center(
                   child: Text(
-                    'مكان الاستلام',
+                    'مكان البيع',
                     style: TextStyle(
                         color: controller.colorPattern.primaryColor,
                         fontWeight: FontWeight.bold,
@@ -60,7 +66,7 @@ class SelectLocationsScreen extends GetView<HomeController> {
                           padding: EdgeInsets.fromLTRB(32, 0, 32, 0),
                           child: Center(
                             child: MButton(
-                              onPress: controller.setLocation,
+                              onPress: controller.selLocationBuy,
                               label: ' تحديد الموقع',
                               color: controller.colorPattern.primaryColor,
                             ),
