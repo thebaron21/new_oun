@@ -236,16 +236,7 @@ class SendTimeReceviceScreen extends GetView<HomeController> {
                       width: screenwidth / 2,
                       height: B,
                       child: RaisedButton(
-                        onPressed: controller.goToExtrInfoRecevice
-                        //  () async {
-
-                        //   // model.goToDetails(
-                        //   //   context,
-                        //   //   _dateSend == null ? DateTime.now() : _dateSend,
-                        //   //   widget.address,
-                        //   // );
-                        // }
-                        ,
+                        onPressed: controller.goToExtrInfoRecevice,
                         child: const Text(' تأكيد العنوان',
                             style: TextStyle(fontSize: 20)),
                         color: Color(0xFFD0DD28),

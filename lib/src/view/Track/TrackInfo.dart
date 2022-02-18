@@ -49,12 +49,6 @@ class _TrackInfoState extends State<TrackInfo> {
                 ),
               ),
               leadingWidth: 48,
-              // leading: Container(
-              //   padding: EdgeInsets.all(8),
-              //   child: SvgPicture.asset(
-              //     'assets/images/svg/ic_menu.svg',
-              //   ),
-              // ),
             ),
             body: ListView(children: [
               Container(

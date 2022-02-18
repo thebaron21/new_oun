@@ -4,8 +4,14 @@ import 'package:oon_client/logic/base/controllers/track_controller.dart';
 import 'package:oon_client/src/helpers/color_pattern.dart';
 
 class TarckController extends BaseTarckController {
-  static GetStorage _storage = GetStorage();
-  String userId = _storage.read("userid").toString();
+  static GetStorage storage = GetStorage();
+  var userId = storage.read("user");
   RxInt currentStep = 0.obs;
   ColorPattern colorPattern = ColorPattern();
+  RxInt currentStatus = 1.obs;
+  RxBool one = false.obs;
+  RxBool two = false.obs;
+  RxBool three = false.obs;
+  RxBool four = false.obs;
+
 }

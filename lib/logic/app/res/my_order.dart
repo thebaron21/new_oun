@@ -10,7 +10,7 @@ class RemoteMyOrder {
         uri: EndPoint.myOrder,
         headers: headers,
         body: {
-          'user_id': userId,
+          'user_id': userId.toString(),
         },
       );
       print(res);

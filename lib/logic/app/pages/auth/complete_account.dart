@@ -3,7 +3,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:oon_client/logic/app/controllers/auth_controller.dart';
 
+import 'open_maps.dart';
+
 class CompleteAccountScreen extends GetView<AuthController> {
+  String apiKey = 'AIzaSyD9ckDkX8LPJezARCxA1k9wuigJ_VaLLMY';
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
@@ -190,7 +193,7 @@ class CompleteAccountScreen extends GetView<AuthController> {
                                     ),
                                     Center(
                                         child: Icon(
-                                      controller.maps_home_work_outlined,
+                                      Icons.location_city,
                                       color: Color(0XFFD0DD28),
                                     ))
                                   ],
@@ -259,24 +262,7 @@ class CompleteAccountScreen extends GetView<AuthController> {
                             ),
                             InkWell(
                               onTap: () {
-                                // if (_username.text != null ||
-                                //     _username.text != "") {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => OpenMap(
-                                //         fullname: _username.text,
-                                //       ),
-                                //     ),
-                                //   );
-                                // } else {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) => OpenMap(),
-                                //     ),
-                                //   );
-                                // }
+                                Get.to(OpenMapsScreen());
                               },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.end,

@@ -5,9 +5,9 @@ class MyOrder {
   String total;
   String pickupTotal;
   String trackingCode;
-  Null barcode;
+  String barcode;
   String status;
-  Null agent;
+  String agent;
   String createdAt;
   String updatedAt;
   Pickup pickup;
@@ -33,24 +33,24 @@ class MyOrder {
 
   MyOrder.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    userId = json['user_id'];
-    actionType = json['action_type'];
-    total = json['total'];
-    pickupTotal = json['pickup_total'];
-    trackingCode = json['tracking_code'];
-    barcode = json['barcode'];
-    status = json['status'];
-    agent = json['agent'];
+    userId = json['user_id'] ?? "";
+    actionType = json['action_type'] ?? "";
+    total = json['total'] ?? "";
+    pickupTotal = json['pickup_total'] ?? "";
+    trackingCode = json['tracking_code'] ?? "";
+    barcode = json['barcode'] ?? "";
+    status = json['status'] ?? "";
+    agent = json['agent'] ?? "";
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
-    // pickup =
-    //     json['pickup'] != null ? new Pickup.fromJson(json['pickup']) : null;
-    // delivery = json['delivery'] != null
-    //     ? new Delivery.fromJson(json['delivery'])
-    //     : null;
-    // shipment = json['shipment'] != null
-    //     ? new Shipment.fromJson(json['shipment'])
-    //     : null;
+    pickup =
+        json['pickup'] != null ? new Pickup.fromJson(json['pickup']) : null;
+    delivery = json['delivery'] != null
+        ? new Delivery.fromJson(json['delivery'])
+        : null;
+    shipment = json['shipment'] != null
+        ? new Shipment.fromJson(json['shipment'])
+        : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -103,12 +103,12 @@ class Pickup {
 
   Pickup.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    orderId = json['order_id'];
-    areaId = json['area_id'];
-    pickupContact = json['pickup_contact'];
-    phone = json['phone'];
-    description = json['description'];
-    pickupTime = json['pickup_time'];
+    orderId = json['order_id'] ?? "";
+    areaId = json['area_id'] ?? "";
+    pickupContact = json['pickup_contact'] ?? "";
+    phone = json['phone'] ?? "";
+    description = json['description'] ?? "";
+    pickupTime = json['pickup_time'] ?? "";
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -154,10 +154,10 @@ class Delivery {
     id = json['id'];
     orderId = json['order_id'];
     areaId = json['area_id'];
-    deliveryContact = json['delivery_contact'];
-    phone = json['phone'];
-    description = json['description'];
-    deliveryTime = json['delivery_time'];
+    deliveryContact = json['delivery_contact'] ?? "";
+    phone = json['phone'] ?? "";
+    description = json['description'] ?? "";
+    deliveryTime = json['delivery_time'] ?? "";
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }

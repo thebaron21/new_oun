@@ -54,7 +54,6 @@ class AddSenderReceviceScreen extends GetView<HomeController> {
               title: 'إرسال',
               colorPattern: controller.colorPattern,
               back: () {
-                // Navigator.of(context).pop();
                 Get.back();
               },
               help: () {},

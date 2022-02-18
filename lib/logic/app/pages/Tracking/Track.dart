@@ -8,15 +8,14 @@ import 'package:oon_client/logic/app/controllers/track_controller.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:oon_client/logic/app/models/my_order.dart';
 import 'package:oon_client/logic/app/res/my_order.dart';
-import 'package:im_stepper/stepper.dart';
+
 import 'TrackInfo.dart';
 
 class TrackScreen extends GetView<TarckController> {
   // RemoteMyOrder.myOrder(userId)
-
+  GetStorage storage = GetStorage();
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: controller.colorPattern.primaryColor,
@@ -28,51 +27,42 @@ class TrackScreen extends GetView<TarckController> {
           ),
         ),
         leadingWidth: 48,
-      ),
+             ),
+      drawerEdgeDragWidth: 50,
       endDrawer: drawerCustom(),
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: 100,
-              width: Get.width,
-              child: ImageStepper(
-                stepColor: Colors.red,
-                enableStepTapping: false,
-                lineDotRadius: 2,
-                lineColor: controller.colorPattern.primaryColor,
-                enableNextPreviousButtons: false,
-                images: [
-                  AssetImage("assets/images/done_revevice.png"),
-                  AssetImage("assets/images/storage.png"),
-                  AssetImage("assets/images/out_delivery.png"),
-                  AssetImage("assets/images/done.png"),
-                ],
-              ),
-            ),
+            stepper(controller.currentStep.value),
             Divider(
               height: 1,
               thickness: 1,
             ),
             Center(
               child: FutureBuilder(
-                future: RemoteMyOrder.myOrder(controller.userId),
+                future: RemoteMyOrder.myOrder(storage.read("userid").toString()),
                 builder: (BuildContext context,
                     AsyncSnapshot<List<MyOrder>> snapshot) {
                   if (snapshot.hasData) {
+                    print(snapshot.data);
                     if (snapshot.data.length >= 1) {
                       return Obx(() {
                         return Stepper(
+                          onStepContinue: (){
+                            Get.to(TrackInfo(snapshot.data[controller.currentStep.value]));
+                            print(snapshot.data[controller.currentStep.value].toJson());
+                          },
                           onStepTapped: (value) {
                             controller.currentStep(value);
-                            print(controller.currentStep.value);
+                            print(snapshot.data[controller.currentStep.value].toJson());
+
                           },
                           currentStep: controller.currentStep.value,
                           steps: snapshot.data
                               .map(
                                 (e) => Step(
-                                  title: Text("title"),
-                                  content: Text("Text"),
+                                  title: Text( e.trackingCode.toString() ),
+                                  content: Text(e.actionType),
                                 ),
                               )
                               .toList(),
@@ -100,6 +90,78 @@ class TrackScreen extends GetView<TarckController> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  Widget stepper(int value) {
+
+
+    switch(value){
+      case 1:
+        controller.one.value = true;
+        break;
+      case 2:
+       controller.one.value = true;
+       controller.two.value = true;
+        break;
+      case 3:
+        controller.one.value = true;
+        controller.two.value = true;
+        controller.three.value = true;
+        break;
+      case 4:
+        controller.one.value = true;
+        controller.two.value = true;
+        controller.three.value = true;
+        controller.four.value = true;
+        break;
+    }
+
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Obx(
+              () {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+            step(image: "assets/images/done_revevice.png", isDone: controller.one.value),
+            dots(isDone:controller.one.value),
+            step(image: "assets/images/storage.png", isDone: controller.two.value),
+            dots(isDone:controller.two.value),
+            step(image: "assets/images/out_delivery.png", isDone: controller.three.value),
+            dots(isDone:controller.three.value),
+            step(image: "assets/images/done.png", isDone: controller.four.value),
+          ],);
+        }
+      ),
+    );
+  }
+
+  Widget step({String image, bool isDone = false}) {
+    return Container(
+      height: 50,
+      width: 50,
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: isDone == true ? Colors.green :Colors.grey,
+        shape: BoxShape.circle,
+      ),
+      child: Image.asset(
+        image,
+        color: Colors.white,
+      ),
+    );
+  }
+
+  Widget dots({bool isDone = false}){
+    return Container(
+      width:Get.width*0.15,
+      height: 2,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: isDone == true ?Colors.green :Colors.grey,
         ),
       ),
     );

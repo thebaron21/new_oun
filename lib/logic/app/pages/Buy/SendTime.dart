@@ -10,7 +10,7 @@ import 'package:oon_client/logic/app/controllers/home_controller.dart';
 import 'package:oon_client/src/view/widgets/action_bar.dart';
 import 'package:oon_client/src/view/remove/page_logo.dart';
 import 'package:calendar_timeline/calendar_timeline.dart';
-
+ 
 class BuyTimeScreen extends GetView<HomeController> {
   String _dateSend = DateTime.utc(2000, 30, 2).toString();
 
@@ -148,59 +148,6 @@ class BuyTimeScreen extends GetView<HomeController> {
           SizedBox(
             height: 30,
           ),
-          //     _buildTimeAndDate(context, size),
-          //     Row(
-          //       mainAxisAlignment: MainAxisAlignment.center,
-          //       children: [
-          //         Column(
-          //           children: [
-          //             Align(
-          //               alignment: Alignment.bottomCenter,
-          //               child: Container(
-          //                 width: C,
-          //                 child: RaisedButton(
-          //                   onPressed: () {
-          //                     Navigator.of(context).pop();
-          //                   },
-          //                   child: const Text('الرجوع',
-          //                       style: TextStyle(fontSize: 20)),
-          //                   color: Color(0xFF6D6F72),
-          //                   textColor: Colors.white,
-          //                   elevation: 5,
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //         Column(
-          //           children: [
-          //             Align(
-          //               alignment: Alignment.bottomCenter,
-          //               child: Container(
-          //                 width: C,
-          //                 child: RaisedButton(
-          //                   onPressed: () async {
-          //                     model.goToDetails(
-          //                         context,
-          //                         _dateSend == null
-          //                             ? DateTime.now()
-          //                             : _dateSend,
-          //                         widget.address);
-          //                   },
-          //                   child: const Text('تأكيد',
-          //                       style: TextStyle(fontSize: 20)),
-          //                   color: Color(0xFFD0DD28),
-          //                   textColor: Colors.white,
-          //                   elevation: 5,
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       ],
-          //     )
-          //   ],
-          // ),
         ],
       ),
       bottomNavigationBar: Container(
@@ -237,16 +184,7 @@ class BuyTimeScreen extends GetView<HomeController> {
                       width: screenwidth / 2,
                       height: B,
                       child: RaisedButton(
-                        onPressed: controller.goToExtrInfoBuy
-                        //  () async {
-
-                        //   // model.goToDetails(
-                        //   //   context,
-                        //   //   _dateSend == null ? DateTime.now() : _dateSend,
-                        //   //   widget.address,
-                        //   // );
-                        // }
-                        ,
+                        onPressed: controller.goToExtrInfoBuy,
                         child: const Text(' تأكيد العنوان',
                             style: TextStyle(fontSize: 20)),
                         color: Color(0xFFD0DD28),

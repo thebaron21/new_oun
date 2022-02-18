@@ -228,7 +228,7 @@ class SendPayReceviceScreen extends GetView<HomeController> {
         child: RaisedButton(
           onPressed: controller.goToDoneRevecie,
           child: controller.getIsLoading.value == true
-              ? spickit
+              ? controller.spickit
               : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),
           color: Color(0xFFD0DD28),
           textColor: Colors.white,
@@ -237,9 +237,4 @@ class SendPayReceviceScreen extends GetView<HomeController> {
       ),
     );
   }
-
-  var spickit = SpinKitWave(
-    size: 35,
-    color: Colors.white,
-  );
 }

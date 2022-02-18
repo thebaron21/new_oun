@@ -190,7 +190,9 @@ class BuyExtraInfoScreen extends GetView<HomeController> {
                         Column(
                           children: [
                             RaisedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.deliveryDescriptionController.text="";
+                              },
                               child: Text(
                                 'إلغاء',
                                 style: new TextStyle(
@@ -210,26 +212,14 @@ class BuyExtraInfoScreen extends GetView<HomeController> {
                           children: [
                             RaisedButton(
                               onPressed: () async {
-                                // final _form = _keyForm.currentState;
-                                // if (_form.validate()) {
-                                //   _form.save();
-                                //   if (_fullDesc == "") {
-                                //     showMessage(
-                                //       context,
-                                //       title: "تنبيه",
-                                //       content: "أكتب تفاصيل إضافية",
-                                //     );
-                                //   } else {
-                                //     showMessage(
-                                //       context,
-                                //       title: "إشعار",
-                                //       content: "تم حفظ تفاصيل العنوان",
-                                //     );
-                                //   }
-                                //   print("Full Description " + _fullDesc);
-                                //   SharedPreferences obj =
-                                //       await SharedPreferences.getInstance();
-                                // }
+                                if(controller.deliveryDescriptionController.text != ""){
+                                  Get.showSnackbar(
+                                      GetSnackBar(
+                                        title: "نجاح",
+                                        message: "تم إضافة تفاصيل للعنوان",
+                                      )
+                                  );
+                                }
                               },
                               child: Text(
                                 'إضافة',

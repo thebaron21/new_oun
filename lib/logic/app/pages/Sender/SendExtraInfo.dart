@@ -41,12 +41,6 @@ class SendExtraInfoScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: Container(
-        //   padding: EdgeInsets.all(8),
-        //   child: SvgPicture.asset(
-        //     'assets/images/svg/ic_menu.svg',
-        //   ),
-        // ),
       ),
       body: Form(
         key: _keyForm,
@@ -110,12 +104,12 @@ class SendExtraInfoScreen extends GetView<HomeController> {
                         height: 30,
                         alignment: Alignment.center,
                         child: CircleAvatar(
-                            backgroundColor:
-                                controller.colorPattern.primaryColor,
-                            child: Icon(
-                              Icons.location_on,
-                              color: Colors.white,
-                            )),
+                          backgroundColor: controller.colorPattern.primaryColor,
+                          child: Icon(
+                            Icons.location_on,
+                            color: Colors.white,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -189,7 +183,9 @@ class SendExtraInfoScreen extends GetView<HomeController> {
                         Column(
                           children: [
                             RaisedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                controller.deliveryDescriptionController.text="";
+                              },
                               child: Text(
                                 'إلغاء',
                                 style: new TextStyle(
@@ -209,26 +205,14 @@ class SendExtraInfoScreen extends GetView<HomeController> {
                           children: [
                             RaisedButton(
                               onPressed: () async {
-                                // final _form = _keyForm.currentState;
-                                // if (_form.validate()) {
-                                //   _form.save();
-                                //   if (_fullDesc == "") {
-                                //     showMessage(
-                                //       context,
-                                //       title: "تنبيه",
-                                //       content: "أكتب تفاصيل إضافية",
-                                //     );
-                                //   } else {
-                                //     showMessage(
-                                //       context,
-                                //       title: "إشعار",
-                                //       content: "تم حفظ تفاصيل العنوان",
-                                //     );
-                                //   }
-                                //   print("Full Description " + _fullDesc);
-                                //   SharedPreferences obj =
-                                //       await SharedPreferences.getInstance();
-                                // }
+                                if(controller.deliveryDescriptionController.text != ""){
+                                  Get.showSnackbar(
+                                    GetSnackBar(
+                                      title: "نجاح",
+                                      message: "تم إضافة تفاصيل للعنوان",
+                                    )
+                                  );
+                                }
                               },
                               child: Text(
                                 'إضافة',

@@ -222,24 +222,25 @@ class BuyPayScreen extends GetView<HomeController> {
           ),
         ],
       ),
-      bottomSheet: Container(
-        width: size.width,
-        height: 47,
-        child: RaisedButton(
-          onPressed: controller.goToDoneBuy,
-          child: controller.getIsLoading.value == true
-              ? spickit
-              : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),
-          color: Color(0xFFD0DD28),
-          textColor: Colors.white,
-          elevation: 5,
-        ),
+      bottomSheet: Obx(
+              () {
+          return Container(
+            width: size.width,
+            height: 47,
+            child:RaisedButton(
+              onPressed: controller.goToDoneBuy,
+              child: controller.isLoading.value == true
+                  ? controller.spickit
+                  : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),
+              color: Color(0xFFD0DD28),
+              textColor: Colors.white,
+              elevation: 5,
+            ),
+          );
+        }
       ),
     );
   }
 
-  var spickit = SpinKitWave(
-    size: 35,
-    color: Colors.white,
-  );
+
 }

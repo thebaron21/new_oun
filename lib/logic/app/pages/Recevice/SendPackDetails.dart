@@ -248,22 +248,6 @@ class SendPackDetailsReceviceScreen extends GetView<HomeController> {
             child: RaisedButton(
               padding: EdgeInsets.all(6),
               onPressed: controller.goToAddSenderRecevice,
-              // () async {
-              //   // ignore: unrelated_type_equality_checks
-              //   // if (_price.text == "" || _details.text == "") {
-              //   //   showMessage(
-              //   //     context,
-              //   //     title: "تفاصيل الشحنة",
-              //   //     content: "أكمل جميع الحقول",
-              //   //   );
-              //   // } null{
-              //   //   controller.goToTimeAndDate(context,
-              //   //       details: _details.text,
-              //   //       isBig: isBig,
-              //   //       price: _price.text,
-              //   //       address: widget.address);
-              //   // }
-              // },
               child: const Text(
                 'مواعيد إرسال الشحنة',
                 style: TextStyle(fontSize: 20),

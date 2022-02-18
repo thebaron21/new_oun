@@ -89,38 +89,38 @@ class SendPackDetailsScreen extends GetView<HomeController> {
               ),
             ),
           ),
-          Container(
-            color: Color(0xFFF1F2F2),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      controller.deliveryAreaIdController.text,
-                      style: TextStyle(
-                        fontSize: 12,
-                      ),
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      child: CircleAvatar(
-                        maxRadius: 10,
-                        child: Image.asset(
-                          'assets/images/png/g.png',
-                          width: 30,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
+          // Container(
+          //   color: Color(0xFFF1F2F2),
+          //   child: Row(
+          //     mainAxisAlignment: MainAxisAlignment.center,
+          //     children: [
+          //       Column(
+          //         children: [
+          //           Text(
+          //             controller.deliveryAreaIdController.text,
+          //             style: TextStyle(
+          //               fontSize: 12,
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //       Column(
+          //         children: [
+          //           Container(
+          //             alignment: Alignment.center,
+          //             child: CircleAvatar(
+          //               maxRadius: 10,
+          //               child: Image.asset(
+          //                 'assets/images/png/g.png',
+          //                 width: 30,
+          //               ),
+          //             ),
+          //           ),
+          //         ],
+          //       ),
+          //     ],
+          //   ),
+          // ),
           SizedBox(
             height: 20,
           ),

@@ -66,18 +66,6 @@ class SelectLocationsReceviceScreen extends GetView<HomeController> {
                         ),
                       ),
                     ),
-                    // Positioned(
-                    //   top: 180,
-                    //   child: Container(
-                    //     child: Center(
-                    //       child: PageLogo(
-                    //         imagePath:
-                    //             'assets/images/svg/ic_location.svg',
-                    //         height: 60,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
               ))

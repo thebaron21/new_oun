@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:oon_client/logic/app/functions/connect_remote.dart';
 import 'package:oon_client/logic/app/models/profile_model.dart';
 import 'package:oon_client/logic/base/controllers/authentication_controller.dart';
@@ -15,8 +19,37 @@ class AuthController extends AuthenticationController {
   TextEditingController emailController = TextEditingController();
   RxBool isLoading = false.obs;
 
-  IconData maps_home_work_outlined =
-      IconData(61871, fontFamily: 'MaterialIcons');
+  CameraPosition cameraPosition =
+  CameraPosition(target: LatLng(12.0055, -12.32389), zoom: 18.009);
+
+  String apiKey = 'AIzaSyD9ckDkX8LPJezARCxA1k9wuigJ_VaLLMY';
+  // Location _location;
+  Completer<GoogleMapController> completer = Completer();
+  List<Marker> mapsMarker = List<Marker>();
+
+  selectLocation(LatLng value) async {
+    print("dsfads");
+    mapsMarker.add(
+      Marker(
+        position: value,
+        markerId: MarkerId("1"),
+        icon:
+        BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueViolet),
+      ),
+    );
+
+    List<Placemark> placemarks =
+    await placemarkFromCoordinates(value.latitude, value.longitude);
+    print(placemarks.first);
+
+    addressLocationController.text =
+    "${placemarks.first.country} ${placemarks.first.administrativeArea} ${placemarks.first.subAdministrativeArea} ${placemarks.first.subLocality} ${placemarks.first.street}";
+
+    print("$addressLocationController.text");
+  }
+
+
+
 
   GlobalKey<FormState> globalKey = GlobalKey<FormState>();
 

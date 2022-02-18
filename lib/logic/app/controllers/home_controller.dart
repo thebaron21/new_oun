@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -35,13 +36,14 @@ import 'package:oon_client/logic/app/pages/Tracking/Track.dart';
 import 'package:oon_client/logic/app/res/create_order.dart';
 import 'package:oon_client/logic/base/controllers/home_controller.dart';
 import 'package:oon_client/src/helpers/color_pattern.dart';
-
 import 'order_controller.dart';
+// import 'package:flutter_native_contact_picker/flutter_native_contact_picker.dart';
 
 enum OrderStatus2 { Completed, Inprogress }
 
 class HomeController extends BaseHomeController {
   OrderStatus2 orderStatus = OrderStatus2.Inprogress;
+  RxBool isLoading = false.obs;
   TextEditingController userIdController = TextEditingController();
   TextEditingController pickupContactController = TextEditingController();
   TextEditingController pickupPhoneController = TextEditingController();
@@ -228,15 +230,44 @@ class HomeController extends BaseHomeController {
 
   @override
   goToBuy() {
-    Get.to(SendPayScreen());
+    if(deliveryPhoneController.text != "" && deliveryContactController.text != "") {
+      Get.to(SendPayScreen());
+    }else{
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة جميع الحقول",
+          )
+      );
+    }
   }
 
   goToBuyNext() {
-    Get.to(BuyPayScreen());
+    if(deliveryPhoneController.text != "" && deliveryContactController.text != "") {
+      Get.to(BuyPayScreen());
+    }else{
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message:"قم بكتابة جميع الحقول",
+          )
+      );
+    }
   }
 
   goToBuyRecevice() {
-    Get.to(SendPayReceviceScreen());
+    if(
+    deliveryPhoneController.text != "" &&
+    deliveryContactController.text != "" ) {
+       Get.to(SendPayReceviceScreen());
+    }else{
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة جميع الحقول",
+          )
+      );
+    }
   }
 
   @override
@@ -245,11 +276,14 @@ class HomeController extends BaseHomeController {
   }
 
   goToExtrInfoBuy() {
+
     Get.to(BuyExtraInfoScreen());
   }
 
   goToExtrInfoRecevice() {
-    Get.to(SendExtraInfoReceviceScreen());
+
+      Get.to(SendExtraInfoReceviceScreen());
+
   }
 
   @override
@@ -267,6 +301,7 @@ class HomeController extends BaseHomeController {
   }
 
   goToTimeBuy() async {
+
     List<Placemark> placemarks = await placemarkFromCoordinates(
         locationLatLng.value.latitude, locationLatLng.value.longitude);
     deliveryAreaIdController.text = placemarks.first.country +
@@ -275,47 +310,131 @@ class HomeController extends BaseHomeController {
         " , " +
         placemarks.first.street;
     print(deliveryAreaIdController.text);
-
-    Get.to(BuyTimeScreen());
+    if( deliveryAreaIdController.text != "" ) {
+      Get.to(BuyTimeScreen());
+    }else{
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بإختيار الموقع",
+          )
+      );
+    }
   }
 
   goToTimeRecevice() async {
-    List<Placemark> placemarks = await placemarkFromCoordinates(
-        locationLatLng.value.latitude, locationLatLng.value.longitude);
-    deliveryAreaIdController.text = placemarks.first.country +
-        " , " +
-        placemarks.first.administrativeArea +
-        " , " +
-        placemarks.first.street;
-    print(deliveryAreaIdController.text);
-
-    Get.to(SendTimeReceviceScreen());
+      deliveryAreaIdController.clear();
+      deliveryAreaIdController.text="";
+      print(deliveryAreaIdController.text);
+      List<Placemark> placemarks = await placemarkFromCoordinates(
+          locationLatLng.value.latitude, locationLatLng.value.longitude);
+      deliveryAreaIdController.text = placemarks.first.country +
+          " , " +
+          placemarks.first.administrativeArea +
+          " , " +
+          placemarks.first.street;
+      print(deliveryAreaIdController.text);
+      if( deliveryAreaIdController.text != "" ) {
+      Get.to(SendTimeReceviceScreen());
+    }else{
+        Get.showSnackbar(
+            GetSnackBar(
+              title: "خطأ",
+              message: "قم بإختيار الموقع",
+            )
+        );
+    }
   }
 
   @override
   goToPick() {
-    Get.to(SendPackDetailsScreen());
+    if(deliveryDescriptionController.text == ""){
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة تفاصيل إضافية للعنوان",
+          )
+      );
+    }else{
+      Get.to(SendPackDetailsScreen());
+    }
+
   }
 
   goToPickBuy() {
-    Get.to(BuyPackDetailsScreen());
+    if(deliveryDescriptionController.text == ""){
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة تفاصيل إضافية للعنوان",
+          )
+      );
+    }else {
+      Get.to(BuyPackDetailsScreen());
+    }
   }
 
   @override
   goToAddSender() {
-    Get.to(AddSenderScreen());
+    if(pickupDescriptionController.text != "" && pickupPriceController.text != ""){
+      Get.to(AddSenderScreen());
+    }else{
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة تفاصيل إضافية للعنوان",
+          )
+      );
+    }
+
   }
 
   goToAddBuy() {
-    Get.to(AddBuyScreen());
+    if( pickupPriceController.text != "" &&
+        pickupDescriptionController.text != "" &&
+        weightController.text != ""
+    ) {
+      Get.to(AddBuyScreen());
+    }else{
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة كل الحقول",
+          )
+      );
+    }
   }
 
   goToPickRecevice() {
-    Get.to(SendPackDetailsReceviceScreen());
+    print(deliveryDescriptionController.text);
+    if(deliveryDescriptionController.text == ""){
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة تفاصيل إضافية للعنوان",
+          )
+      );
+    }else{
+      Get.to(SendPackDetailsReceviceScreen());
+    }
+
   }
 
   goToAddSenderRecevice() {
-    Get.to(AddSenderReceviceScreen());
+    if( pickupPriceController.text != "" &&
+        pickupDescriptionController.text != "" &&
+        weightController.text != ""
+    ){
+      Get.to(AddSenderReceviceScreen());
+    }else{
+      Get.showSnackbar(
+          GetSnackBar(
+            title: "خطأ",
+            message: "قم بكتابة كل الحقول",
+          )
+      );
+    }
+
   }
 
   Future<String> getNameArea(LatLng latLng) async {
@@ -333,7 +452,7 @@ class HomeController extends BaseHomeController {
   addMoreInfoOfAddress() {
     isClose(true);
     deliveryTimeController.text += moreInfoController.text;
-  }
+    }
 
   closeMoreInfoAddress() {
     isClose(true);
@@ -343,6 +462,7 @@ class HomeController extends BaseHomeController {
     // final PhoneContact contact = await FlutterContactPicker.pickPhoneContact();
     // deliveryPhoneController.text = contact.phoneNumber.number;
     // deliveryContactController.text = contact.fullName;
+
   }
 
   @override
@@ -381,12 +501,19 @@ class HomeController extends BaseHomeController {
       weight: weightController.text,
       shipmentDescription: shipmentDescriptionController.text,
     );
-    var isDone = await CreateOrderSender.setOrder(orderData);
-    if (isDone["message"] == "seccess") {
-      var tarckingCode = isDone["data"]["order"]["tracking_code"];
-      await storage.write("tracking_code", tarckingCode);
-      print(storage.getKeys());
-      Get.to(SendDoneScreen());
+    try {
+      isLoading(true);
+      var isDone = await CreateOrderSender.setOrder(orderData);
+      if (isDone["message"] == "seccess") {
+        var tarckingCode = isDone["data"]["order"]["tracking_code"];
+        await storage.write("tracking_code", tarckingCode);
+        print(storage.getKeys());
+        Get.to(SendDoneScreen());
+      }
+    }catch(ex){
+      throw Exception(ex);
+    }finally{
+      isLoading(false);
     }
   }
 
@@ -417,7 +544,7 @@ class HomeController extends BaseHomeController {
       deliveryContact: deliveryContactController.text,
       deliveryPhone: "+966" + deliveryPhoneController.text,
       deliveryAreaId: "2",
-      deliveryDescription: deliveryAreaIdController.text,
+      deliveryDescription: deliveryDescriptionController.text,
       deliveryTime: deliveryTimeController.text.replaceAll("/", "-") +
           " " +
           DateTime.now().hour.toString() +
@@ -436,6 +563,7 @@ class HomeController extends BaseHomeController {
   }
 
   goToDoneBuy() async {
+    isLoading(true);
     AuthenticationModel user =
         AuthenticationModel.fromJson(storage.read("user"));
     userIdController.text = user.user.id.toString();
@@ -475,7 +603,13 @@ class HomeController extends BaseHomeController {
       var tarckingCode = isDone["data"]["order"]["tracking_code"];
       await storage.write("tracking_code", tarckingCode);
       print(storage.getKeys());
-      Get.to(SendDoneScreen());
+      Get.off(SendDoneScreen());
     }
+    isLoading(false);
   }
+
+  var spickit = SpinKitWave(
+    size: 35,
+    color: Colors.white,
+  );
 }

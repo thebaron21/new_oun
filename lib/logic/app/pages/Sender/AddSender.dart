@@ -15,21 +15,13 @@ class AddSenderScreen extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     double screenwidth = MediaQuery.of(context).size.width;
-    double screenhigh = MediaQuery.of(context).size.height;
 
     double A;
-    double B;
-    double C;
 
     if (MediaQuery.of(context).orientation == Orientation.portrait) {
       A = screenwidth / 1.2;
-      B = screenwidth / 1.44;
-      C = screenwidth / 2.11;
     } else {
       A = screenwidth / 1.2;
-
-      B = screenwidth / 1.44;
-      C = screenwidth / 2.11;
     }
 //SendPackDetails
     return Scaffold(

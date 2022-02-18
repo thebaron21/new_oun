@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:oon_client/src/entities/order_entity.dart';
 
-import 'package:geocode/geocode.dart';
+// import 'package:geocode/geocode.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 enum StateService {

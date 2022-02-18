@@ -24,12 +24,6 @@ class SendPayScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: Container(
-        //   padding: EdgeInsets.all(8),
-        //   child: SvgPicture.asset(
-        //     'assets/images/svg/ic_menu.svg',
-        //   ),
-        // ),
       ),
       body: ListView(
         children: [
@@ -225,14 +219,18 @@ class SendPayScreen extends GetView<HomeController> {
       bottomSheet: Container(
         width: size.width,
         height: 47,
-        child: RaisedButton(
-          onPressed: controller.goToDone,
-          child: controller.getIsLoading.value == true
-              ? spickit
-              : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),
-          color: Color(0xFFD0DD28),
-          textColor: Colors.white,
-          elevation: 5,
+        child: Obx(
+          () {
+            return RaisedButton(
+              onPressed: controller.goToDone,
+              child: controller.isLoading.value == true
+                  ? controller.spickit
+                  : Text('تنفيذ الطلب', style: TextStyle(fontSize: 20)),
+              color: Color(0xFFD0DD28),
+              textColor: Colors.white,
+              elevation: 5,
+            );
+          }
         ),
       ),
     );

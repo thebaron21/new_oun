@@ -28,15 +28,6 @@ class HomeScreen extends GetView<HomeController> {
           ),
         ),
         leadingWidth: 48,
-        // leading: InkWell(
-        //   onTap: () => Scaffold.of(context).openDrawer(),
-        //   child: Container(
-        //     padding: EdgeInsets.all(8),
-        //     child: SvgPicture.asset(
-        //       'assets/images/svg/ic_menu.svg',
-        //     ),
-        //   ),
-        // ),
       ),
       endDrawer: drawerCustom(),
       body: new Theme(
