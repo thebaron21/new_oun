@@ -39,7 +39,7 @@ class HomeScreen extends GetView<HomeController> {
                   EdgeInsets.fromLTRB(screenwidth - 100, screenhigh / 12, 0, 0),
               child: Text(
                 '!مرحبا',
-                style: TextStyle(fontSize: 36, color: Color(0XFFD0DD28)),
+                style: TextStyle(fontSize:20, color: Color(0XFFD0DD28)),
               ),
             ),
             Container(

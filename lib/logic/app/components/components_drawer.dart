@@ -86,7 +86,7 @@ class ComponentDrawer {
     return Container(
       width: Get.width,
       height: 1,
-      color:Colors.black12,
+      color: Colors.black12,
     );
   }
 }
@@ -117,15 +117,15 @@ class DrawerItems {
       text: "طلباتي",
       icon: Icon(Icons.calendar_today_rounded, color: colorPattern.magicColor),
       onTap: () {
-        Get.to( TrackScreen() );
+        Get.to(TrackScreen());
       },
     ),
-    DrawerModel(
-      text: "أتصل بنا",
-      icon:
-          Icon(Icons.forward_to_inbox_outlined, color: colorPattern.magicColor),
-      onTap: () {},
-    ),
+    // DrawerModel(
+    //   text: "أتصل بنا",
+    //   icon:
+    //       Icon(Icons.forward_to_inbox_outlined, color: colorPattern.magicColor),
+    //   onTap: () {},
+    // ),
     DrawerModel(
       text: "سياسة الإستخدام",
       icon: Icon(Icons.policy, color: colorPattern.magicColor),
@@ -145,10 +145,10 @@ class DrawerItems {
       icon: Icon(Icons.share, color: colorPattern.magicColor),
       onTap: () {},
     ),
-    DrawerModel(
-      text: "من نحن",
-      icon: Icon(Icons.info, color: colorPattern.magicColor),
-      onTap: () {},
-    ),
+    // DrawerModel(
+    //   text: "من نحن",
+    //   icon: Icon(Icons.info, color: colorPattern.magicColor),
+    //   onTap: () {},
+    // ),
   ];
 }

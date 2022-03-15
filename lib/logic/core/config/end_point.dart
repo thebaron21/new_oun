@@ -1,5 +1,5 @@
 class EndPoint {
-  static const String _baseUrl = "http://infotouchit.com/api";
+  static const String _baseUrl = "http://ounexpress.com/api";
 
   static const String register = _baseUrl + "/register";
 

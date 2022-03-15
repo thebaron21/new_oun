@@ -185,7 +185,7 @@ class SendPackDetailsScreen extends GetView<HomeController> {
               Container(
                 alignment: Alignment.bottomRight,
                 margin: EdgeInsets.fromLTRB(0, 10, 10, 0),
-                child: Text('قيمة محتويات الشحنة'),
+                child: Text("القيمة المراد تحصيلها"),
               ),
               Container(
                 width: C,
@@ -251,7 +251,7 @@ class SendPackDetailsScreen extends GetView<HomeController> {
               onPressed: controller.goToAddSender,
               child: const Text(
                 'مواعيد إرسال الشحنة',
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 16),
               ),
               color: Color(0xFFD0DD28),
               textColor: Colors.white,
